@@ -43,10 +43,8 @@ export const CreateRecipe = () => {
         "http://localhost:3001/recipes",
         { ...recipe },
         {
-          headers: { authorization: cookies.access_token},
-          //SameSite: None
-        },
-        { withCredentials: true }
+          headers: { authorization: cookies.access_token },
+        }
       );
 
       alert("Recipe Created");
