@@ -3,11 +3,11 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
-const Auth = () => {
+export const Auth = () => {
   return (
-    <div>
-      <Login></Login>
-      <Register></Register>
+    <div className="auth">
+      <Login />
+      <Register />
     </div>
   );
 };
@@ -38,14 +38,30 @@ const Login = () => {
   };
 
   return (
-    <Form
-      username={username}
-      setUsername={setUsername}
-      password={password}
-      setPassword={setPassword}
-      label="Login"
-      onSubmit={handleSubmit}
-    />
+    <div className="auth-container">
+      <form onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 
@@ -70,29 +86,9 @@ const Register = () => {
   };
 
   return (
-    <Form
-      username={username}
-      setUsername={setUsername}
-      password={password}
-      setPassword={setPassword}
-      label="Register"
-      onSubmit={handleSubmit}
-    />
-  );
-};
-
-const Form = ({
-  username,
-  setUsername,
-  password,
-  setPassword,
-  label,
-  onSubmit,
-}) => {
-  return (
     <div className="auth-container">
-      <form onSubmit={onSubmit}>
-        <h2>{label}</h2>
+      <form onSubmit={handleSubmit}>
+        <h2>Register</h2>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
           <input
@@ -116,5 +112,3 @@ const Form = ({
     </div>
   );
 };
-
-export default Auth;

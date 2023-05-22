@@ -51,7 +51,6 @@ export const CreateRecipe = () => {
       navigate("/");
     } catch (error) {
       console.error(error);
-      console.log(recipe)
     }
   };
 
@@ -115,4 +114,3 @@ export const CreateRecipe = () => {
     </div>
   );
 };
-export default CreateRecipe;

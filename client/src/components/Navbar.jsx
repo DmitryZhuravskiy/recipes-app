@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-const Navbar = () => {
+export const Navbar = () => {
   const [cookies, setCookies] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
@@ -11,7 +11,6 @@ const Navbar = () => {
     window.localStorage.clear();
     navigate("/auth");
   };
-
   return (
     <div className="navbar">
       <Link to="/">Home</Link>
@@ -25,5 +24,3 @@ const Navbar = () => {
     </div>
   );
 };
-
-export default Navbar;
