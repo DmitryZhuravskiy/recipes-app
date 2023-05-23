@@ -62,6 +62,14 @@ export const Home = () => {
                 {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
               </button>
             </div>
+            <div>
+              <h3>Ingredients</h3>
+              <ul className="instructions">
+                {recipe.ingredients.map((ingredient) => (
+                  <li>{ingredient}</li>
+                ))}
+              </ul>
+            </div>
             <div className="instructions">
               <p>{recipe.instructions}</p>
             </div>

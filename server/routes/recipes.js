@@ -27,7 +27,6 @@ router.post("/", verifyToken, async (req, res) => {
     cookingTime: req.body.cookingTime,
     userOwner: req.body.userOwner,
   });
-  console.log(recipe);
 
   try {
     const result = await recipe.save();
@@ -41,7 +40,6 @@ router.post("/", verifyToken, async (req, res) => {
       },
     });
   } catch (err) {
-    // console.log(err);
     res.status(500).json(err);
   }
 });
@@ -75,7 +73,6 @@ router.get("/savedRecipes/ids/:userId", async (req, res) => {
     const user = await UserModel.findById(req.params.userId);
     res.status(201).json({ savedRecipes: user?.savedRecipes });
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -87,11 +84,9 @@ router.get("/savedRecipes/:userId", async (req, res) => {
     const savedRecipes = await RecipesModel.find({
       _id: { $in: user.savedRecipes },
     });
-
-    console.log(savedRecipes);
     res.status(201).json({ savedRecipes });
+    console.log(res.json({savedRecipes}));
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
