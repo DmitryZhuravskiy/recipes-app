@@ -2,7 +2,7 @@
 <h1><b>Resipes App</b></h1>
  
 <h2><b>Описание проекта</b></h2>
-Приложение для просмотра, добавления в базу данных и/или в список избранных рецептов. Есть авторизацию через JWT-token. MERN
+Приложение для просмотра, добавления в базу данных и/или в список избранных рецептов. Есть авторизацию через JWT-token. MERN.
 <br></br>
 <b>Использованные технологии:</b> React, Redux Toolkit, react-router-dom, axios, react-cookie,база данных - MongoDB, nodemon, express.js, jsonwebtoken, bcrypt, cors, mongoose
 <br /><br />
