@@ -11,10 +11,12 @@ export const CreateRecipe = () => {
     name: "",
     description: "",
     ingredients: [],
+    tags: [],
     instructions: "",
     imageUrl: "",
     cookingTime: 0,
     userOwner: userID,
+    likes: [],
   });
 
   const navigate = useNavigate();
@@ -31,9 +33,21 @@ export const CreateRecipe = () => {
     setRecipe({ ...recipe, ingredients });
   };
 
+  const handleTagChange = (event, index) => {
+    const { value } = event.target;
+    const tags = [...recipe.tags];
+    tags[index] = value;
+    setRecipe({ ...recipe, tags });
+  };
+
   const handleAddIngredient = () => {
     const ingredients = [...recipe.ingredients, ""];
     setRecipe({ ...recipe, ingredients });
+  };
+
+  const handleAddTag = () => {
+    const tags = [...recipe.tags, ""];
+    setRecipe({ ...recipe, tags });
   };
 
   const handleSubmit = async (event) => {
@@ -85,6 +99,20 @@ export const CreateRecipe = () => {
         ))}
         <button type="button" onClick={handleAddIngredient}>
           Add Ingredient
+        </button>
+
+        <label htmlFor="tags">Tags</label>
+        {recipe.tags.map((tag, index) => (
+          <input
+            key={index}
+            type="text"
+            name="tags"
+            value={tag}
+            onChange={(event) => handleTagChange(event, index)}
+          />
+        ))}
+        <button type="button" onClick={handleAddTag}>
+          Add Tag
         </button>
         <label htmlFor="instructions">Instructions</label>
         <textarea

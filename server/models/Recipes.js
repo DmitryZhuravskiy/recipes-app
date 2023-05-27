@@ -11,11 +11,15 @@ const recipeSchema = mongoose.Schema({
       required: true,
     },
   ],
+  tags: [
+    {
+      type: String,
+    },
+  ],
   instructions: {
     type: String,
     required: true,
   },
-
   imageUrl: {
     type: String,
     required: true,
@@ -24,6 +28,11 @@ const recipeSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  likes: [
+    {
+      type: String,
+    },
+  ],
   userOwner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

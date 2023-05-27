@@ -38,11 +38,20 @@ export const SavedRecipes = () => {
                 ))}
               </ul>
             </div>
+            <div>
+              <h3>Tags</h3>
+              <ul className="instructions">
+                {recipe.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+            </div>
             <div className="instructions">
               <p>{recipe.instructions}</p>
             </div>
             <img src={recipe.imageUrl} alt={recipe.name} />
             <p>Cooking Time: {recipe.cookingTime} minutes</p>
+            <p>{recipe.likes.length} likes</p>
           </li>
         ))}
       </ul>

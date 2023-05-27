@@ -22,10 +22,12 @@ router.post("/", verifyToken, async (req, res) => {
     name: req.body.name,
     image: req.body.image,
     ingredients: req.body.ingredients,
+    tags: req.body.tags,
     instructions: req.body.instructions,
     imageUrl: req.body.imageUrl,
     cookingTime: req.body.cookingTime,
     userOwner: req.body.userOwner,
+    likes: req.body.likes,
   });
 
   try {
@@ -35,7 +37,11 @@ router.post("/", verifyToken, async (req, res) => {
         name: result.name,
         image: result.image,
         ingredients: result.ingredients,
+        tags: result.tags,
         instructions: result.instructions,
+        cookingTime: result.cookingTime, 
+        userOwner: recipe.userOwner,
+        likes: [],
         _id: result._id,
       },
     });
