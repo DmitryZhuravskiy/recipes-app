@@ -5,33 +5,29 @@ import axios from "axios";
 export const Home = () => {
   const [recipes, setRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
-
+  const isRecipeSaved = (id) => savedRecipes.includes(id);
+  const isLiked = (recipe) => recipe.likes.includes(userID);
   const userID = useGetUserID();
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/recipes");
-        setRecipes(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  const fetchRecipes = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/recipes");
+      setRecipes(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    const fetchSavedRecipes = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
-        );
-        setSavedRecipes(response.data.savedRecipes);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchRecipes();
-    fetchSavedRecipes();
-  }, []);
+  const fetchSavedRecipes = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
+      );
+      setSavedRecipes(response.data.savedRecipes);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const saveRecipe = async (recipeID) => {
     try {
@@ -45,11 +41,29 @@ export const Home = () => {
     }
   };
 
-  const isRecipeSaved = (id) => savedRecipes.includes(id);
+  const likeRecipe = async (recipeID) => {
+    try {
+      const response = await axios.put(
+        "http://localhost:3001/recipes/addLike",
+        {
+          recipeID,
+          userID,
+        }
+      );
+      setRecipes(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchRecipes();
+    fetchSavedRecipes();
+  }, []);
 
   return (
     <div>
-      <h1>Recipes</h1>
+      <h1>Рецепты</h1>
       <ul>
         {recipes.map((recipe) => (
           <li key={recipe._id}>
@@ -59,11 +73,11 @@ export const Home = () => {
                 onClick={() => saveRecipe(recipe._id)}
                 disabled={isRecipeSaved(recipe._id)}
               >
-                {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+                {isRecipeSaved(recipe._id) ? "Сохранено" : "Сохранить"}
               </button>
             </div>
             <div>
-              <h3>Ingredients</h3>
+              <h3>Ингридиенты</h3>
               <ul className="instructions">
                 {recipe.ingredients.map((ingredient) => (
                   <li>{ingredient}</li>
@@ -71,7 +85,7 @@ export const Home = () => {
               </ul>
             </div>
             <div>
-              <h3>Tags</h3>
+              <h3>Теги</h3>
               <ul className="instructions">
                 {recipe.tags.map((tag) => (
                   <li>{tag}</li>
@@ -82,8 +96,25 @@ export const Home = () => {
               <p>{recipe.instructions}</p>
             </div>
             <img src={recipe.imageUrl} alt={recipe.name} />
-            <p>Cooking Time: {recipe.cookingTime} minutes</p>
-            <p>{recipe.likes.length} likes</p>
+            <p>Время приготовления: {recipe.cookingTime} минут</p>
+            <p className="likeWrapper" onClick={() => likeRecipe(recipe._id)}>
+              {recipe.likes.length}
+              {isLiked(recipe) ? (
+                <img
+                  className="like"
+                  src="./images/heart--red.svg"
+                  width="20"
+                  height="15"
+                />
+              ) : (
+                <img
+                  className="like"
+                  src="./images/heart.svg"
+                  width={20}
+                  height={15}
+                />
+              )}
+            </p>
           </li>
         ))}
       </ul>

@@ -61,7 +61,7 @@ export const CreateRecipe = () => {
         }
       );
 
-      alert("Recipe Created");
+      alert("Рецепт записан");
       navigate("/");
     } catch (error) {
       console.error(error);

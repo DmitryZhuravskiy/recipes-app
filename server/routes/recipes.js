@@ -39,7 +39,7 @@ router.post("/", verifyToken, async (req, res) => {
         ingredients: result.ingredients,
         tags: result.tags,
         instructions: result.instructions,
-        cookingTime: result.cookingTime, 
+        cookingTime: result.cookingTime,
         userOwner: recipe.userOwner,
         likes: [],
         _id: result._id,
@@ -91,9 +91,44 @@ router.get("/savedRecipes/:userId", async (req, res) => {
       _id: { $in: user.savedRecipes },
     });
     res.status(201).json({ savedRecipes });
-    console.log(res.json({savedRecipes}));
+    console.log(res.json({ savedRecipes }));
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+router.put("/addLike", async (req, res) => {
+  try {
+    const recipe = await RecipesModel.findById(req.body.recipeID);
+    if (recipe.likes.includes(req.body.userID)) {
+      let newRecipeLikes = [...recipe.likes];
+      newRecipeLikes.splice(recipe.likes.indexOf(req.body.userID), 1);
+      await RecipesModel.updateOne(
+        {
+          _id: req.body.recipeID,
+        },
+        {
+          likes: newRecipeLikes,
+        }
+      );
+    } else {
+      await RecipesModel.updateOne(
+        {
+          _id: req.body.recipeID,
+        },
+        {
+          likes: [...recipe.likes, req.body.userID],
+        }
+      );
+    }
+
+    const recipes = await RecipesModel.find({});
+    res.status(200).json(recipes);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Не удалось лайкнуть рецепт",
+    });
   }
 });
 

@@ -115,4 +115,15 @@ p {
   max-width: 400px;
   font-size: 12px;
 }
+.likeWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 
+.like {
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+}
