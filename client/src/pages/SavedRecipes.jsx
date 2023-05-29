@@ -5,6 +5,22 @@ import axios from "axios";
 export const SavedRecipes = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const userID = useGetUserID();
+  const isLiked = (recipe) => recipe.likes.includes(userID);
+
+  const likeRecipe = async (recipeID) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/recipes/savedRecipes/addLike/${userID}`,
+        {
+          recipeID,
+          userID,
+        }
+      );
+      setSavedRecipes(response.data.savedRecipes);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     const fetchSavedRecipes = async () => {
@@ -22,7 +38,7 @@ export const SavedRecipes = () => {
   }, []);
   return (
     <div>
-      <h1>Saved Recipes</h1>
+      <h1>Избранные рецепты</h1>
       <ul>
         {savedRecipes.map((recipe) => (
           <li key={recipe._id}>
@@ -31,7 +47,7 @@ export const SavedRecipes = () => {
             </div>
             <p>{recipe.description}</p>
             <div>
-              <h3>Ingredients</h3>
+              <h3>Ингридиенты</h3>
               <ul className="instructions">
                 {recipe.ingredients.map((ingredient) => (
                   <li>{ingredient}</li>
@@ -39,7 +55,7 @@ export const SavedRecipes = () => {
               </ul>
             </div>
             <div>
-              <h3>Tags</h3>
+              <h3>Теги</h3>
               <ul className="instructions">
                 {recipe.tags.map((tag) => (
                   <li>{tag}</li>
@@ -50,8 +66,25 @@ export const SavedRecipes = () => {
               <p>{recipe.instructions}</p>
             </div>
             <img src={recipe.imageUrl} alt={recipe.name} />
-            <p>Cooking Time: {recipe.cookingTime} minutes</p>
-            <p>{recipe.likes.length} likes</p>
+            <p>Время приготовления:  {recipe.cookingTime} минут</p>
+            <p className="likeWrapper" onClick={() => likeRecipe(recipe._id)}>
+              {recipe.likes.length}
+              {isLiked(recipe) ? (
+                <img
+                  className="like"
+                  src="./images/heart--red.svg"
+                  width="20"
+                  height="15"
+                />
+              ) : (
+                <img
+                  className="like"
+                  src="./images/heart.svg"
+                  width={20}
+                  height={15}
+                />
+              )}
+            </p>
           </li>
         ))}
       </ul>

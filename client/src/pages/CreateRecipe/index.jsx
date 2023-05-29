@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useGetUserID } from "../hooks/useGetUserID";
+import { useGetUserID } from "../../hooks/useGetUserID";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import styles from "./CreateRecipe.module.scss";
 
 export const CreateRecipe = () => {
   const userID = useGetUserID();
@@ -70,9 +71,9 @@ export const CreateRecipe = () => {
 
   return (
     <div className="create-recipe">
-      <h2>Create Recipe</h2>
+      <h2>Добавить рецепт</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">Название</label>
         <input
           type="text"
           id="name"
@@ -80,14 +81,14 @@ export const CreateRecipe = () => {
           value={recipe.name}
           onChange={handleChange}
         />
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">Описание</label>
         <textarea
           id="description"
           name="description"
           value={recipe.description}
           onChange={handleChange}
         ></textarea>
-        <label htmlFor="ingredients">Ingredients</label>
+        <label htmlFor="ingredients">Ингридиенты</label>
         {recipe.ingredients.map((ingredient, index) => (
           <input
             key={index}
@@ -98,10 +99,10 @@ export const CreateRecipe = () => {
           />
         ))}
         <button type="button" onClick={handleAddIngredient}>
-          Add Ingredient
+          Добавить ингридиент
         </button>
 
-        <label htmlFor="tags">Tags</label>
+        <label htmlFor="tags">Теги</label>
         {recipe.tags.map((tag, index) => (
           <input
             key={index}
@@ -112,7 +113,7 @@ export const CreateRecipe = () => {
           />
         ))}
         <button type="button" onClick={handleAddTag}>
-          Add Tag
+          Добавить тег
         </button>
         <label htmlFor="instructions">Instructions</label>
         <textarea
@@ -121,7 +122,7 @@ export const CreateRecipe = () => {
           value={recipe.instructions}
           onChange={handleChange}
         ></textarea>
-        <label htmlFor="imageUrl">Image URL</label>
+        <label htmlFor="imageUrl">Ссылка на изображение</label>
         <input
           type="text"
           id="imageUrl"
@@ -129,7 +130,7 @@ export const CreateRecipe = () => {
           value={recipe.imageUrl}
           onChange={handleChange}
         />
-        <label htmlFor="cookingTime">Cooking Time (minutes)</label>
+        <label htmlFor="cookingTime">Время приготовления (минуты)</label>
         <input
           type="number"
           id="cookingTime"
@@ -137,7 +138,7 @@ export const CreateRecipe = () => {
           value={recipe.cookingTime}
           onChange={handleChange}
         />
-        <button type="submit">Create Recipe</button>
+        <button type="submit">Сохранить рецепт</button>
       </form>
     </div>
   );

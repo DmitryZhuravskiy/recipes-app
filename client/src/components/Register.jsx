@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Form from "./Form";
 
-const Register = () => {
+const Register = ({ isRegister, setRegister }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,21 +13,26 @@ const Register = () => {
         username,
         password,
       });
-      alert("Registration Completed! Now login.");
+      alert("Регистрация закончена. Теперь войдите.");
+      setRegister(true);
     } catch (error) {
       console.error(error);
     }
   };
 
-  return (
+  return !isRegister ? (
     <Form
       handleSubmit={handleSubmit}
       username={username}
       password={password}
       setUsername={setUsername}
       setPassword={setPassword}
-      title="Register"
-    ></Form>
+      title="Зарегистрироваться"
+      isRegister={isRegister} 
+      setRegister={setRegister}
+    />
+  ) : (
+    <></>
   );
 };
 

@@ -4,12 +4,10 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import Form from "./Form";
 
-const Login = () => {
+const Login = ({ isRegister, setRegister }) => {
   const [_, setCookies] = useCookies(["access_token"]);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -20,7 +18,6 @@ const Login = () => {
         username,
         password,
       });
-
       setCookies("access_token", result.data.token);
       window.localStorage.setItem("userID", result.data.userID);
       navigate("/");
@@ -29,8 +26,19 @@ const Login = () => {
     }
   };
 
-  return (
-    <Form handleSubmit={handleSubmit} username={username} password={password} setUsername={setUsername} setPassword={setPassword} title="Login" ></Form>
+  return isRegister ? (
+    <Form
+      handleSubmit={handleSubmit}
+      username={username}
+      password={password}
+      setUsername={setUsername}
+      setPassword={setPassword}
+      title="Авторизоваться"
+      isRegister={isRegister} 
+      setRegister={setRegister}
+    />
+  ) : (
+    <></>
   );
 };
 

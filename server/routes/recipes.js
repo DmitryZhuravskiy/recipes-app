@@ -91,7 +91,6 @@ router.get("/savedRecipes/:userId", async (req, res) => {
       _id: { $in: user.savedRecipes },
     });
     res.status(201).json({ savedRecipes });
-    console.log(res.json({ savedRecipes }));
   } catch (err) {
     res.status(500).json(err);
   }
@@ -121,9 +120,45 @@ router.put("/addLike", async (req, res) => {
         }
       );
     }
-
     const recipes = await RecipesModel.find({});
     res.status(200).json(recipes);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Не удалось лайкнуть рецепт",
+    });
+  }
+});
+
+router.put("/savedRecipes/addLike/:userId", async (req, res) => {
+  try {
+    const recipe = await RecipesModel.findById(req.body.recipeID);
+    if (recipe.likes.includes(req.body.userID)) {
+      let newRecipeLikes = [...recipe.likes];
+      newRecipeLikes.splice(recipe.likes.indexOf(req.body.userID), 1);
+      await RecipesModel.updateOne(
+        {
+          _id: req.body.recipeID,
+        },
+        {
+          likes: newRecipeLikes,
+        }
+      );
+    } else {
+      await RecipesModel.updateOne(
+        {
+          _id: req.body.recipeID,
+        },
+        {
+          likes: [...recipe.likes, req.body.userID],
+        }
+      );
+    }
+    const user = await UserModel.findById(req.params.userId);
+    const savedRecipes = await RecipesModel.find({
+      _id: { $in: user.savedRecipes },
+    });
+    res.status(201).json({ savedRecipes });
   } catch (err) {
     console.log(err);
     res.status(500).json({

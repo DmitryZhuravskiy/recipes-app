@@ -1,0 +1,64 @@
+.authContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 450px;
+  box-sizing: border-box;
+}
+.authCTitle {
+  font-size: var(--fontSizeTitle);
+  line-height: var(--lineHeightTitle);
+  font-weight: 500px;
+  color: var(--titleColor);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.label {
+  color: var(--textColor);
+  cursor: pointer;
+  margin-bottom: 8px;
+  font-weight: 600;
+
+  &:hover {
+    color: var(--textColorHover);
+  }
+}
+.input {
+  border: 2px var(--textColorHover) solid;
+  outline: none;
+  padding: 10px 15px;
+  border-radius: 25px;
+
+  &:hover {
+    border: 2px var(--titleColor) solid;
+    box-shadow: 5px 5px 10px rgba(122, 118, 102, 0.5);
+  }
+}
+.button {
+  margin-top: 25px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  text-align: center;
+  border-radius: 25px;
+  border: 2px var(--textColorHover) solid;
+  color: var(--textColor);
+  background-color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--textColorHover);
+    border-color: white;
+    color: white;
+  }
+}
