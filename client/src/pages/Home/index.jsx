@@ -3,6 +3,7 @@ import { useGetUserID } from "../../hooks/useGetUserID";
 import axios from "axios";
 import createStyles from "../CreateRecipe/CreateRecipe.module.scss";
 import styles from "./Home.module.scss";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -79,28 +80,11 @@ export const Home = () => {
                 ? "В избранных"
                 : "Добавить в избранные"}
             </button>
-
             <img
               className={styles.recipeImage}
               src={recipe.imageUrl}
               alt={recipe.name}
             />
-            {/*
-                          <div>
-              <h3 className={createStyles.label}>Ингридиенты</h3>
-              <ul className="instructions">
-                {recipe.ingredients.map((ingredient) => (
-                  <li>{ingredient}</li>
-                ))}
-              </ul>
-            </div>
-
-                        <div className="instructions">
-              <p>{recipe.instructions}</p>
-            </div>
-               <p>Время приготовления: {recipe.cookingTime} минут</p>
-              */}
-
             <div className={styles.tagsGroup}>
               <ul className={styles.tags}>
                 <li className={styles.tagTitle}>Теги:</li>
@@ -109,27 +93,32 @@ export const Home = () => {
                 ))}
               </ul>
             </div>
-            <p
-              className={styles.likeWrapper}
-              onClick={() => likeRecipe(recipe._id)}
-            >
-              {recipe.likes.length}
-              {isLiked(recipe) ? (
-                <img
-                  className={styles.like}
-                  src="./images/heart--red.svg"
-                  width="20"
-                  height="15"
-                />
-              ) : (
-                <img
-                  className={styles.like}
-                  src="./images/heart.svg"
-                  width={20}
-                  height={15}
-                />
-              )}
-            </p>
+            <div className={styles.likeAndLink}>
+              <p
+                className={styles.likeWrapper}
+                onClick={() => likeRecipe(recipe._id)}
+              >
+                {recipe.likes.length}
+                {isLiked(recipe) ? (
+                  <img
+                    className={styles.like}
+                    src="./images/heart--red.svg"
+                    width="20"
+                    height="15"
+                  />
+                ) : (
+                  <img
+                    className={styles.like}
+                    src="./images/heart.svg"
+                    width={20}
+                    height={15}
+                  />
+                )}
+              </p>
+              <Link className={styles.link} to={`/${recipe._id}`}>
+                Подробнее...
+              </Link>
+            </div>
           </li>
         ))}
       </ul>

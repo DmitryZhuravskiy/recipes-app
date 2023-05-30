@@ -1,0 +1,26 @@
+.recipe {
+  width: 90%;
+  padding: 20px;
+  margin: 40px auto;
+  box-sizing: border-box;
+  border-radius: 25px;
+  border: 2px var(--titleColor) solid;
+  max-width: 800px;
+}
+
+.ingredient {
+  list-style-type: circle;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.instructions {
+  margin: 15px 0;
+  text-align: 16px;
+  line-height: 20px;
+}
+.time {
+  margin-top: 15px;
+}

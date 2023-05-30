@@ -13,6 +13,8 @@
   margin: 0;
   font-size: 16px;
   line-height: 18px;
+  text-decoration: none;
+  list-style: none;
   --titleColor: #6d6552;
   --textColor: #293133;
   --textColorHover: #8d917a;
@@ -50,9 +52,4 @@ a {
   text-decoration: none;
   margin: 10px;
   font-size: 25px;
-}
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
 }

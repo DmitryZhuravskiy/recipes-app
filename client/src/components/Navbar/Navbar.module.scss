@@ -12,14 +12,20 @@
   text-decoration: none;
 }
 
-.link {
+.link,
+.linkActive {
+  padding: 5px 0;
   margin-right: 40px;
   font-size: var(--fontSizeTitle);
   line-height: var(--lineHeightTitle);
+  border-bottom: 1px transparent solid;
 
   &:hover {
     color: #c7d0cc;
   }
+}
+.linkActive {
+  border-bottom: 1px white solid;
 }
 .linkOut {
   margin-left: auto;
@@ -55,8 +61,9 @@
     width: 100%;
     padding: 5px 5%;
   }
-  .link {
-    padding: 0;
+  .link,
+  .linkActive {
+    padding: 5px 0;
     margin: 0;
     margin-right: 20px;
     font-size: 22px;
@@ -73,7 +80,8 @@
     display: block;
     height: auto;
   }
-  .link {
+  .link,
+  .linkActive {
     display: block;
     margin: 10px;
     text-align: center;

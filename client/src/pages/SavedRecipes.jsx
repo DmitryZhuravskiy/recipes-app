@@ -3,6 +3,7 @@ import { useGetUserID } from "../hooks/useGetUserID";
 import axios from "axios";
 import createStyles from "./CreateRecipe/CreateRecipe.module.scss";
 import styles from "./Home/Home.module.scss";
+import { Link } from "react-router-dom";
 
 export const SavedRecipes = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
@@ -74,27 +75,32 @@ export const SavedRecipes = () => {
                 ))}
               </ul>
             </div>
-            <p
-              className={styles.likeWrapper}
-              onClick={() => likeRecipe(recipe._id)}
-            >
-              {recipe.likes.length}
-              {isLiked(recipe) ? (
-                <img
-                  className={styles.like}
-                  src="./images/heart--red.svg"
-                  width="20"
-                  height="15"
-                />
-              ) : (
-                <img
-                  className={styles.like}
-                  src="./images/heart.svg"
-                  width={20}
-                  height={15}
-                />
-              )}
-            </p>
+            <div className={styles.likeAndLink}>
+              <p
+                className={styles.likeWrapper}
+                onClick={() => likeRecipe(recipe._id)}
+              >
+                {recipe.likes.length}
+                {isLiked(recipe) ? (
+                  <img
+                    className={styles.like}
+                    src="./images/heart--red.svg"
+                    width="20"
+                    height="15"
+                  />
+                ) : (
+                  <img
+                    className={styles.like}
+                    src="./images/heart.svg"
+                    width={20}
+                    height={15}
+                  />
+                )}
+              </p>
+              <Link className={styles.link} to={`/${recipe._id}`}>
+                Подробнее...
+              </Link>
+            </div>
           </li>
         ))}
       </ul>

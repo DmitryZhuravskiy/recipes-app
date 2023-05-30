@@ -77,11 +77,27 @@
     color: white;
   }
 }
+.likeAndLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.link {
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--titleColor);
+
+  &:hover {
+    color: #00a550;
+  }
+}
 
 .likeWrapper {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  cursor: pointer;
 }
 .like {
   width: 20px;
@@ -113,10 +129,10 @@
 }
 
 @media (max-width: 450px) {
-    .recipe {
-      width: 100%;
-    }
-    .recipeImage {
-      height: 200px;
-    }
+  .recipe {
+    width: 100%;
   }
+  .recipeImage {
+    height: 200px;
+  }
+}
