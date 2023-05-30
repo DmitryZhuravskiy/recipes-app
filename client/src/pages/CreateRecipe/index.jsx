@@ -4,6 +4,7 @@ import { useGetUserID } from "../../hooks/useGetUserID";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import styles from "./CreateRecipe.module.scss";
+import formStyles from "../../components/Form/Form.module.scss";
 
 export const CreateRecipe = () => {
   const userID = useGetUserID();
@@ -70,75 +71,117 @@ export const CreateRecipe = () => {
   };
 
   return (
-    <div className="create-recipe">
-      <h2>Добавить рецепт</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Название</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={recipe.name}
-          onChange={handleChange}
-        />
-        <label htmlFor="description">Описание</label>
-        <textarea
-          id="description"
-          name="description"
-          value={recipe.description}
-          onChange={handleChange}
-        ></textarea>
-        <label htmlFor="ingredients">Ингридиенты</label>
-        {recipe.ingredients.map((ingredient, index) => (
+    <div className={styles.createRecipe}>
+      <h2 className={formStyles.authCTitle}>Добавить рецепт</h2>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="name">
+            Название:
+          </label>
           <input
-            key={index}
+            className={styles.input}
             type="text"
-            name="ingredients"
-            value={ingredient}
-            onChange={(event) => handleIngredientChange(event, index)}
+            id="name"
+            name="name"
+            value={recipe.name}
+            onChange={handleChange}
           />
-        ))}
-        <button type="button" onClick={handleAddIngredient}>
-          Добавить ингридиент
-        </button>
-
-        <label htmlFor="tags">Теги</label>
-        {recipe.tags.map((tag, index) => (
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="description">
+            Описание:
+          </label>
+          <textarea
+            className={styles.input}
+            id="description"
+            name="description"
+            value={recipe.description}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="ingredients">
+            Ингридиенты:
+          </label>
+          {recipe.ingredients.map((ingredient, index) => (
+            <input
+              className={styles.button}
+              key={index}
+              type="text"
+              name="ingredients"
+              value={ingredient}
+              onChange={(event) => handleIngredientChange(event, index)}
+            />
+          ))}
+          <button
+            className={styles.button}
+            type="button"
+            onClick={handleAddIngredient}
+          >
+            Добавить ингридиент
+          </button>
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="tags">
+            Теги:
+          </label>
+          {recipe.tags.map((tag, index) => (
+            <input
+              className={styles.button}
+              key={index}
+              type="text"
+              name="tags"
+              value={tag}
+              onChange={(event) => handleTagChange(event, index)}
+            />
+          ))}
+          <button
+            className={styles.button}
+            type="button"
+            onClick={handleAddTag}
+          >
+            Добавить тег
+          </button>
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="instructions">
+            Руководство:
+          </label>
+          <textarea
+            className={styles.input}
+            id="instructions"
+            name="instructions"
+            value={recipe.instructions}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="imageUrl">
+            Ссылка на изображение:
+          </label>
           <input
-            key={index}
+            className={styles.input}
             type="text"
-            name="tags"
-            value={tag}
-            onChange={(event) => handleTagChange(event, index)}
+            id="imageUrl"
+            name="imageUrl"
+            value={recipe.imageUrl}
+            onChange={handleChange}
           />
-        ))}
-        <button type="button" onClick={handleAddTag}>
-          Добавить тег
-        </button>
-        <label htmlFor="instructions">Instructions</label>
-        <textarea
-          id="instructions"
-          name="instructions"
-          value={recipe.instructions}
-          onChange={handleChange}
-        ></textarea>
-        <label htmlFor="imageUrl">Ссылка на изображение</label>
-        <input
-          type="text"
-          id="imageUrl"
-          name="imageUrl"
-          value={recipe.imageUrl}
-          onChange={handleChange}
-        />
-        <label htmlFor="cookingTime">Время приготовления (минуты)</label>
-        <input
-          type="number"
-          id="cookingTime"
-          name="cookingTime"
-          value={recipe.cookingTime}
-          onChange={handleChange}
-        />
-        <button type="submit">Сохранить рецепт</button>
+        </div>
+        <div className={styles.formGroup}>
+          <label className={styles.label} htmlFor="cookingTime">
+            Время приготовления (минуты):
+          </label>
+          <input
+            className={styles.input}
+            type="number"
+            id="cookingTime"
+            name="cookingTime"
+            value={recipe.cookingTime}
+            onChange={handleChange}
+          />
+        </div>
+        <button className={styles.submitButton}  type="submit">Сохранить рецепт</button>
       </form>
     </div>
   );

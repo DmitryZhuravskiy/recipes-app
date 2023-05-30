@@ -1,0 +1,122 @@
+.title {
+  font-size: var(--fontSizeTitle);
+  line-height: var(--lineHeightTitle);
+  font-weight: 700px;
+  color: black;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.recipes {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.recipe {
+  width: 30%;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+  border-radius: 25px;
+  border: 2px var(--titleColor) solid;
+}
+.subTitle {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 500px;
+  color: var(--titleColor);
+  margin-bottom: 0;
+  height: 52px;
+  overflow: hidden;
+}
+.recipeImage {
+  width: 100%;
+  height: 300px;
+  border-radius: 15px;
+  margin: 10px 0;
+}
+.tagsGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tagTitle {
+  margin-right: 15px;
+  border: none;
+  margin-bottom: 0;
+}
+.tags {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+  height: 80px;
+  margin-bottom: 10px;
+}
+.tag {
+  display: inline-block;
+  margin-top: 0px;
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 5px 10px 5px 0px;
+  text-align: center;
+  border-radius: 15px;
+  border: 2px var(--textColorHover) solid;
+  color: var(--textColor);
+  background-color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--textColorHover);
+    border-color: white;
+    color: white;
+  }
+}
+
+.likeWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.like {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+@media (max-width: 1200px) {
+  .recipe {
+    width: 48%;
+  }
+
+  .recipeImage {
+    height: 300px;
+  }
+}
+@media (max-width: 900px) {
+  .recipeImage {
+    height: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .recipe {
+    width: 100%;
+  }
+  .recipeImage {
+    height: 300px;
+  }
+}
+
+@media (max-width: 450px) {
+    .recipe {
+      width: 100%;
+    }
+    .recipeImage {
+      height: 200px;
+    }
+  }

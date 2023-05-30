@@ -18,7 +18,7 @@
   line-height: var(--lineHeightTitle);
 
   &:hover {
-    color: #C7D0CC;
+    color: #c7d0cc;
   }
 }
 .linkOut {
@@ -39,5 +39,47 @@
     color: var(--textColor);
     border-color: var(--textColor);
     box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7);
+  }
+}
+@media (max-width: 1200px) {
+  .navbar {
+    margin: 0;
+    width: 100%;
+    padding: 5px 5%;
+  }
+}
+
+@media (max-width: 800px) {
+  .navbar {
+    margin: 0;
+    width: 100%;
+    padding: 5px 5%;
+  }
+  .link {
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+    font-size: 22px;
+    line-height: 26px;
+  }
+
+  .linkOut {
+    font-size: 22px;
+    line-height: 26px;
+  }
+}
+@media (max-width: 550px) {
+  .navbar {
+    display: block;
+    height: auto;
+  }
+  .link {
+    display: block;
+    margin: 10px;
+    text-align: center;
+  }
+  .linkOut {
+    display: block;
+    margin: 20px auto;
   }
 }

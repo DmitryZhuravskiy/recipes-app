@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useGetUserID } from "../hooks/useGetUserID";
+import { useGetUserID } from "../../hooks/useGetUserID";
 import axios from "axios";
+import createStyles from "../CreateRecipe/CreateRecipe.module.scss";
+import styles from "./Home.module.scss";
 
 export const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -62,53 +64,66 @@ export const Home = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Рецепты</h1>
-      <ul>
+    <div className={createStyles.createRecipe}>
+      <h1 className={styles.title}>Рецепты</h1>
+      <ul className={styles.recipes}>
         {recipes.map((recipe) => (
-          <li key={recipe._id}>
-            <div>
-              <h2>{recipe.name}</h2>
-              <button
-                onClick={() => saveRecipe(recipe._id)}
-                disabled={isRecipeSaved(recipe._id)}
-              >
-                {isRecipeSaved(recipe._id) ? "Сохранено" : "Сохранить"}
-              </button>
-            </div>
-            <div>
-              <h3>Ингридиенты</h3>
+          <li className={styles.recipe} key={recipe._id}>
+            <h2 className={styles.subTitle}>{recipe.name}</h2>
+            <button
+              className={createStyles.button}
+              onClick={() => saveRecipe(recipe._id)}
+              disabled={isRecipeSaved(recipe._id)}
+            >
+              {isRecipeSaved(recipe._id)
+                ? "В избранных"
+                : "Добавить в избранные"}
+            </button>
+
+            <img
+              className={styles.recipeImage}
+              src={recipe.imageUrl}
+              alt={recipe.name}
+            />
+            {/*
+                          <div>
+              <h3 className={createStyles.label}>Ингридиенты</h3>
               <ul className="instructions">
                 {recipe.ingredients.map((ingredient) => (
                   <li>{ingredient}</li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h3>Теги</h3>
-              <ul className="instructions">
+
+                        <div className="instructions">
+              <p>{recipe.instructions}</p>
+            </div>
+               <p>Время приготовления: {recipe.cookingTime} минут</p>
+              */}
+
+            <div className={styles.tagsGroup}>
+              <ul className={styles.tags}>
+                <li className={styles.tagTitle}>Теги:</li>
                 {recipe.tags.map((tag) => (
-                  <li>{tag}</li>
+                  <li className={styles.tag}>{tag}</li>
                 ))}
               </ul>
             </div>
-            <div className="instructions">
-              <p>{recipe.instructions}</p>
-            </div>
-            <img src={recipe.imageUrl} alt={recipe.name} />
-            <p>Время приготовления: {recipe.cookingTime} минут</p>
-            <p className="likeWrapper" onClick={() => likeRecipe(recipe._id)}>
+            <p
+              className={styles.likeWrapper}
+              onClick={() => likeRecipe(recipe._id)}
+            >
               {recipe.likes.length}
               {isLiked(recipe) ? (
                 <img
-                  className="like"
+                  className={styles.like}
                   src="./images/heart--red.svg"
                   width="20"
                   height="15"
                 />
               ) : (
                 <img
-                  className="like"
+                  className={styles.like}
                   src="./images/heart.svg"
                   width={20}
                   height={15}

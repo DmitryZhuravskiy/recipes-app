@@ -4,7 +4,8 @@ import { Home } from "./pages/Home";
 import { Auth } from "./pages/Auth";
 import { CreateRecipe } from "./pages/CreateRecipe";
 import { SavedRecipes } from "./pages/SavedRecipes";
-import {Navbar} from "./components/Navbar";
+import { Navbar } from "./components/Navbar";
+import Recipe from "./pages/Recipe";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/create-recipe" element={<CreateRecipe />} />
           <Route path="/saved-recipes" element={<SavedRecipes />} />
+          <Route path="/:id" element={<Recipe />} />
         </Routes>
       </Router>
     </div>
