@@ -1,3 +1,11 @@
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .title {
   font-size: var(--fontSizeTitle);
   line-height: var(--lineHeightTitle);
@@ -5,13 +13,15 @@
   color: black;
   padding: 0;
   margin: 0;
-  margin-bottom: 30px;
 }
 
 .recipes {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: space-between;
   flex-wrap: wrap;
 }
 .recipe {
@@ -21,6 +31,7 @@
   box-sizing: border-box;
   border-radius: 25px;
   border: 2px var(--titleColor) solid;
+  margin-right: 0;
 }
 .subTitle {
   font-size: 22px;

@@ -4,6 +4,7 @@ import axios from "axios";
 import createStyles from "../CreateRecipe/CreateRecipe.module.scss";
 import styles from "./Home.module.scss";
 import { Link } from "react-router-dom";
+import Search from "../../components/Search";
 
 export const Home = () => {
   const [recipes, setRecipes] = useState([]);
@@ -66,7 +67,10 @@ export const Home = () => {
 
   return (
     <div className={createStyles.createRecipe}>
-      <h1 className={styles.title}>Рецепты</h1>
+      <div className={styles.titleWrapper}>
+        <h1 className={styles.title}>Рецепты</h1>
+        <Search recipes={recipes} setRecipes={setRecipes} />
+      </div>
       <ul className={styles.recipes}>
         {recipes.map((recipe) => (
           <li className={styles.recipe} key={recipe._id}>
