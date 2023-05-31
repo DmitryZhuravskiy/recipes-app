@@ -6,6 +6,7 @@ import { verifyToken } from "./user.js";
 
 const router = express.Router();
 
+// Получить все рецепты
 router.get("/", async (req, res) => {
   try {
     const result = await RecipesModel.find({});
@@ -15,7 +16,18 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Create a new recipe
+// Получить рецепт по тегу
+router.get("/tag/:tagId", async (req, res) => {
+  try {
+    const result = await RecipesModel.find({});
+    const answer = result.filter(recipe => (recipe.tags.includes(req.params.tagId)));
+    res.status(200).json(answer);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Создать новый рецепт
 router.post("/", verifyToken, async (req, res) => {
   const recipe = new RecipesModel({
     _id: new mongoose.Types.ObjectId(),
@@ -50,7 +62,7 @@ router.post("/", verifyToken, async (req, res) => {
   }
 });
 
-// Get a recipe by ID
+// Получить рецепт по ID
 router.get("/:recipeId", async (req, res) => {
   try {
     const result = await RecipesModel.findById(req.params.recipeId);
@@ -60,7 +72,7 @@ router.get("/:recipeId", async (req, res) => {
   }
 });
 
-// Save a Recipe
+// Сохранить рецепт
 router.put("/", async (req, res) => {
   const recipe = await RecipesModel.findById(req.body.recipeID);
   const user = await UserModel.findById(req.body.userID);
@@ -73,7 +85,7 @@ router.put("/", async (req, res) => {
   }
 });
 
-// Get id of saved recipes
+// Получить id сохраненного рецепта
 router.get("/savedRecipes/ids/:userId", async (req, res) => {
   try {
     const user = await UserModel.findById(req.params.userId);
@@ -83,7 +95,7 @@ router.get("/savedRecipes/ids/:userId", async (req, res) => {
   }
 });
 
-// Get saved recipes
+// Получить сохраненные рецепты
 router.get("/savedRecipes/:userId", async (req, res) => {
   try {
     const user = await UserModel.findById(req.params.userId);
@@ -96,6 +108,7 @@ router.get("/savedRecipes/:userId", async (req, res) => {
   }
 });
 
+// Добавление/удаление лайка по клику
 router.put("/addLike", async (req, res) => {
   try {
     const recipe = await RecipesModel.findById(req.body.recipeID);
@@ -130,6 +143,7 @@ router.put("/addLike", async (req, res) => {
   }
 });
 
+// Добавление/удаление лайка по клику на странице сохраненных рецептов
 router.put("/savedRecipes/addLike/:userId", async (req, res) => {
   try {
     const recipe = await RecipesModel.findById(req.body.recipeID);

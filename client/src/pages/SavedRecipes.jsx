@@ -51,27 +51,13 @@ export const SavedRecipes = () => {
               src={recipe.imageUrl}
               alt={recipe.name}
             />
-            {/*
-              <div>
-              <h3>Ингридиенты</h3>
-              <ul className="instructions">
-                {recipe.ingredients.map((ingredient) => (
-                  <li>{ingredient}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="instructions">
-              <p>{recipe.instructions}</p>
-            </div>
-                   <p>Время приготовления:  {recipe.cookingTime} минут</p>
-  
-  */}{" "}
             <div className={styles.tagsGroup}>
               <ul className={styles.tags}>
                 <li className={styles.tagTitle}>Теги:</li>
                 {recipe.tags.map((tag) => (
-                  <li className={styles.tag}>{tag}</li>
+                  <Link to={`/tag/${tag}`} className={styles.tag}>
+                    {tag}
+                  </Link>
                 ))}
               </ul>
             </div>

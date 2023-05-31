@@ -89,7 +89,9 @@ export const Home = () => {
               <ul className={styles.tags}>
                 <li className={styles.tagTitle}>Теги:</li>
                 {recipe.tags.map((tag) => (
-                  <li className={styles.tag}>{tag}</li>
+                  <Link to={`/tag/${tag}`} className={styles.tag}>
+                    {tag}
+                  </Link>
                 ))}
               </ul>
             </div>

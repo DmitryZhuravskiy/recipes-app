@@ -6,6 +6,8 @@ import { CreateRecipe } from "./pages/CreateRecipe";
 import { SavedRecipes } from "./pages/SavedRecipes";
 import { Navbar } from "./components/Navbar";
 import Recipe from "./pages/Recipe";
+import TagSearch from "./pages/TagSearch";
+import React from "react";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path="/create-recipe" element={<CreateRecipe />} />
           <Route path="/saved-recipes" element={<SavedRecipes />} />
           <Route path="/:id" element={<Recipe />} />
+          <Route path="/tag/:id" element={<TagSearch />} />
         </Routes>
       </Router>
     </div>

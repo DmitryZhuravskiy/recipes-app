@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { useGetUserID } from "../../hooks/useGetUserID";
 import createStyles from "../CreateRecipe/CreateRecipe.module.scss";
@@ -103,7 +103,9 @@ const Recipe = () => {
         <ul className={styles.tags}>
           <li className={styles.tagTitle}>Теги:</li>
           {recipe.tags.map((tag) => (
-            <li className={styles.tag}>{tag}</li>
+            <Link to={`/tag/${tag}`} className={styles.tag}>
+              {tag}
+            </Link>
           ))}
         </ul>
       </div>
