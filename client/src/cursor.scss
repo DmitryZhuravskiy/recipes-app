@@ -1,0 +1,22 @@
+.cursor {
+    width: 26px;
+    height: 26px;
+    border: 2px solid red;
+    border-radius: 50%;
+    position: absolute;
+    transition: transform 0.3s;
+    pointer-events: none;
+    z-index: 1200;
+  }
+
+  
+.cursorHover {
+    transform: scale(3);
+    border: none;
+    box-shadow: 0 0 10px $color3_1;
+  }
+  .cursorHoverMini {
+    transform: scale(0.7);
+    box-shadow: 0 0 20px $color5;
+  }
+  
