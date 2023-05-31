@@ -6,8 +6,19 @@ import { CreateRecipe } from "./pages/CreateRecipe";
 import { SavedRecipes } from "./pages/SavedRecipes";
 import { Navbar } from "./components/Navbar";
 import Recipe from "./pages/Recipe";
+import Cursor, { dotCursor } from "./Cursor";
 
 function App() {
+  useEffect(() => {
+
+    window.addEventListener("mousemove", dotCursor);
+
+
+
+  return () => {
+       window.removeEventListener("mousemove", dotCursor);
+  };
+}, []);
   return (
     <div className="App">
       <Router>
@@ -19,6 +30,7 @@ function App() {
           <Route path="/saved-recipes" element={<SavedRecipes />} />
           <Route path="/:id" element={<Recipe />} />
         </Routes>
+        <Cursor />
       </Router>
     </div>
   );
