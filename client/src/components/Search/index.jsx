@@ -8,10 +8,11 @@ const Search = ({ recipes, setRecipes }) => {
 
   const updateSearchValue = useCallback(
     debounce((str) => {
-      let sortRecipes = [...recipes].filter((recipe) =>
+      let sortRecipes = recipes.filter((recipe) =>
         recipe.name.toLowerCase().includes(str.toLowerCase())
       );
       setRecipes(sortRecipes);
+      console.log(value, recipes)
     }, 1000),
     []
   );

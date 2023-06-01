@@ -55,6 +55,7 @@ export const SavedRecipes = () => {
               src={recipe.imageUrl}
               alt={recipe.name}
             />
+            <p className={styles.description}>{recipe.description}</p>
             <div className={styles.tagsGroup}>
               <ul className={styles.tags}>
                 <li className={styles.tagTitle}>Теги:</li>

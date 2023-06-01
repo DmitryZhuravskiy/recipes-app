@@ -84,6 +84,7 @@ export const Home = () => {
                 ? "В избранных"
                 : "Добавить в избранные"}
             </button>
+            <p className={styles.description}>{recipe.description}</p>
             <img
               className={styles.recipeImage}
               src={recipe.imageUrl}

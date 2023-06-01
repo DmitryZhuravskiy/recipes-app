@@ -10,6 +10,7 @@ const TagSearch = () => {
   const [tagRecipes, setTagRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const userID = useGetUserID();
+  const isRecipeSaved = (id) => savedRecipes.includes(id);
   const isLiked = (recipe) => recipe.likes.includes(userID);
   const { id } = useParams();
 
@@ -69,16 +70,26 @@ const TagSearch = () => {
 
   return (
     <div className={createStyles.createRecipe}>
-    <h1 className={styles.title}>Поиск по тегу {id}</h1>
+    <h1 className={styles.title}>Поиск по тегу #{id}</h1>
     <ul className={styles.recipes}>
       {tagRecipes.map((recipe) => (
         <li className={styles.recipe} key={recipe._id}>
           <h2 className={styles.subTitle}>{recipe.name}</h2>
+          <button
+              className={createStyles.button}
+              onClick={() => saveRecipe(recipe._id)}
+              disabled={isRecipeSaved(recipe._id)}
+            >
+              {isRecipeSaved(recipe._id)
+                ? "В избранных"
+                : "Добавить в избранные"}
+            </button>
           <img
             className={styles.recipeImage}
             src={recipe.imageUrl}
             alt={recipe.name}
           />
+          <p className={styles.description}>{recipe.description}</p>
           <div className={styles.tagsGroup}>
             <ul className={styles.tags}>
               <li className={styles.tagTitle}>Теги:</li>
