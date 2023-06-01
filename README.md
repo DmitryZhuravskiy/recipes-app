@@ -2,9 +2,9 @@
 <h1><b>Resipes App</b></h1>
  
 <h2><b>Описание проекта</b></h2>
-Приложение для просмотра, добавления в базу данных и/или в список избранных рецептов. Есть авторизацию через JWT-token. MERN
+Приложение для просмотра, добавления в базу рецептов, сохранение в избранных рецептах, поиск по названию, поиск/навигация по #тегам. Есть переход на страницу конкретного рецепта, на странице выдается полная информация. Есть авторизацию через JWT-token. MERN.
 <br></br>
-<b>Использованные технологии:</b> React, Redux Toolkit, react-router-dom, axios, react-cookie,база данных - MongoDB, nodemon, express.js, jsonwebtoken, bcrypt, cors, mongoose
+<b>Использованные технологии:</b> React, Redux Toolkit, react-router-dom, axios, react-cookie, lodash.debounce, SCSS, база данных - MongoDB, nodemon, express.js, jsonwebtoken, bcrypt, cors, mongoose
 <br /><br />
 <h2><b>Руководство по запуску.</b></h2>
 <b>1.</b> git clone https://github.com/DmitryZhuravskiy/resipes-app.git <i> - копируем репозиторий;</i><br />
