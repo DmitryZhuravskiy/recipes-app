@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { userRouter } from "./routes/user.js";
 import { recipesRouter } from "./routes/recipes.js";
 import "dotenv/config";
-//request.setHeader("Content-Security-Policy", "default-src 'self'");
+//request.setHeader("Content-Security-Policy", "default-src '*'");
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(function (req, res, next) {
   res.setHeader(
-    "Content-Security-Policy-Report-Only",
+    "Content-Security-Policy",
     "default-src *; script-src *; style-src *; font-src *; img-src *; frame-src 'self'"
   );
 
