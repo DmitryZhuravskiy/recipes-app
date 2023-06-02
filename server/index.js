@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy-Report-Only",
-    "default-src '*'; script-src '*'; style-src 'self'; font-src 'self'; img-src 'self'; frame-src 'self'"
+    "default-src *; script-src *; style-src *; font-src *; img-src *; frame-src 'self'"
   );
 
   next();
