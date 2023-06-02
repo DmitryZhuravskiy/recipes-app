@@ -26,4 +26,4 @@ mongoose
   })
   .catch((err) => console.log("Database Error", err));
 
-app.listen(process.env.PORT || 3001, () => console.log("Server Run"));
+app.listen(process.env.PORT_LOCAL || process.env.PORT, () => console.log("Server Run"));
