@@ -11,6 +11,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
+res.set("Content-Security-Policy", "default-src '*'");
+
+/*
+  app.use(function(req, res, next) {
+  res.setHeader("Content-Security-Policy", "script-src 'self' https://apis.google.com");
+  return next();
+});
+
 
 app.use(function (req, res, next) {
   res.setHeader(
@@ -20,6 +28,7 @@ app.use(function (req, res, next) {
 
   next();
 });
+  */
 
 app.use("/auth", userRouter);
 app.use("/recipes", recipesRouter);
