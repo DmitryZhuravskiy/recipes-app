@@ -3,14 +3,15 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import Form from "./Form";
+import { IRegister } from "../types";
 
-const Login = ({ isRegister, setRegister }) => {
+const Login = ({ isRegister, setRegister }: IRegister) => {
   const [_, setCookies] = useCookies(["access_token"]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
@@ -34,7 +35,7 @@ const Login = ({ isRegister, setRegister }) => {
       setUsername={setUsername}
       setPassword={setPassword}
       title="Авторизоваться"
-      isRegister={isRegister} 
+      isRegister={isRegister}
       setRegister={setRegister}
     />
   ) : (

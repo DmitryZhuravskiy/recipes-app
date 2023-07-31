@@ -5,13 +5,18 @@ import createStyles from "./CreateRecipe/CreateRecipe.module.scss";
 import styles from "./Home/Home.module.scss";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
+import { IRecipe } from "../types";
 
 export const SavedRecipes = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const userID = useGetUserID();
-  const isLiked = (recipe) => recipe.likes.includes(userID);
+  const isLiked = (recipe: IRecipe) => {
+    if (userID) {
+      return recipe.likes?.includes(userID);
+    }
+  }
 
-  const likeRecipe = async (recipeID) => {
+  const likeRecipe = async (recipeID: string) => {
     try {
       const response = await axios.put(
         `http://localhost:3001/recipes/savedRecipes/addLike/${userID}`,
@@ -39,7 +44,7 @@ export const SavedRecipes = () => {
     };
 
     fetchSavedRecipes();
-  }, []);
+  }, [userID]);
   return (
     <div className={createStyles.createRecipe}>
       <div className={styles.titleWrapper}>
@@ -47,7 +52,7 @@ export const SavedRecipes = () => {
         <Search recipes={savedRecipes} setRecipes={setSavedRecipes} />
       </div>
       <ul className={styles.recipes}>
-        {savedRecipes.map((recipe) => (
+        {savedRecipes.map((recipe: IRecipe) => (
           <li className={styles.recipe} key={recipe._id}>
             <h2 className={styles.subTitle}>{recipe.name}</h2>
             <img
@@ -78,6 +83,7 @@ export const SavedRecipes = () => {
                     src="./images/heart--red.svg"
                     width="20"
                     height="15"
+                    alt="likes"
                   />
                 ) : (
                   <img
@@ -85,6 +91,7 @@ export const SavedRecipes = () => {
                     src="./images/heart.svg"
                     width={20}
                     height={15}
+                    alt="likes"
                   />
                 )}
               </p>

@@ -5,15 +5,30 @@ import { useGetUserID } from "../../hooks/useGetUserID";
 import createStyles from "../CreateRecipe/CreateRecipe.module.scss";
 import styles from "../Home/Home.module.scss";
 import recipeStyles from "./Recipe.module.scss";
+import { IRecipe } from "../../types";
 
 const Recipe = () => {
-  const [recipe, setRecipe] = useState({});
-  const [savedRecipes, setSavedRecipes] = useState([]);
+  const [recipe, setRecipe] = useState<IRecipe>({
+    _id: "",
+    name: "",
+    ingredients: [],
+    description: "",
+    imageUrl: "",
+    tags: [],
+    likes: [],
+    cookingTime: 0,
+    instructions: "",
+  });
+  const [savedRecipes, setSavedRecipes] = useState<string[]>([]);
   const { id } = useParams();
   const [isLoading, setLoading] = useState(true);
   const userID = useGetUserID();
-  const isRecipeSaved = (id) => savedRecipes.includes(id);
-  const isLiked = (recipe) => recipe.likes.includes(userID);
+  const isRecipeSaved = (id: string) => savedRecipes.includes(id);
+  const isLiked = (recipe: IRecipe) => {
+    if (userID) {
+      return recipe.likes.includes(userID);
+    }
+  };
 
   const fetchRecipe = async () => {
     try {
@@ -21,7 +36,7 @@ const Recipe = () => {
       const response = await axios.get(`http://localhost:3001/recipes/${id}`);
       setRecipe(response.data);
       setLoading(false);
-      console.log(recipe.name);
+      console.log(recipe?.name);
     } catch (err) {
       console.log(err);
     }
@@ -38,7 +53,7 @@ const Recipe = () => {
     }
   };
 
-  const saveRecipe = async (recipeID) => {
+  const saveRecipe = async (recipeID: string) => {
     try {
       const response = await axios.put("http://localhost:3001/recipes", {
         recipeID,
@@ -50,7 +65,7 @@ const Recipe = () => {
     }
   };
 
-  const likeRecipe = async (recipeID) => {
+  const likeRecipe = async (recipeID: string) => {
     try {
       const response = await axios.put(
         "http://localhost:3001/recipes/addLike",
@@ -68,7 +83,7 @@ const Recipe = () => {
   useEffect(() => {
     fetchRecipe();
     fetchSavedRecipes();
-  }, []);
+  }, [fetchRecipe, fetchSavedRecipes]);
 
   if (isLoading) {
     return <p>Идет загрузка...</p>;

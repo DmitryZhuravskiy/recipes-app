@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
-export const Auth = () => {
-  const [isRegister, setRegister] = useState(true);
+export const Auth: React.FC = () => {
+  const [isRegister, setRegister] = useState<boolean>(true);
 
   return (
     <div className="auth">

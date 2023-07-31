@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Form from "./Form";
+import { IRegister } from "../types";
 
-const Register = ({ isRegister, setRegister }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const Register = ({ isRegister, setRegister }: IRegister) => {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     try {
       await axios.post("http://localhost:3001/auth/register", {
@@ -28,7 +29,7 @@ const Register = ({ isRegister, setRegister }) => {
       setUsername={setUsername}
       setPassword={setPassword}
       title="Зарегистрироваться"
-      isRegister={isRegister} 
+      isRegister={isRegister}
       setRegister={setRegister}
     />
   ) : (

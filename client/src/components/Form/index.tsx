@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Form.module.scss";
+import { IForm } from '../../types';
 
 const Form = ({
   handleSubmit,
@@ -10,7 +11,7 @@ const Form = ({
   title,
   isRegister,
   setRegister,
-}) => {
+}: IForm) => {
   const tongleAuth = () => {
     if (isRegister) {
       setRegister(false);

@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import styles from "./CreateRecipe.module.scss";
 import formStyles from "../../components/Form/Form.module.scss";
+import { IRecipe, ICreateRecipe } from "../../types";
 
 export const CreateRecipe = () => {
   const userID = useGetUserID();
   const [cookies, _] = useCookies(["access_token"]);
-  const [recipe, setRecipe] = useState({
+  const [recipe, setRecipe] = useState<ICreateRecipe>({
+    _id: '0',
     name: "",
     description: "",
     ingredients: [],
@@ -23,20 +25,28 @@ export const CreateRecipe = () => {
 
   const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void = (
+    event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target as HTMLInputElement;
     setRecipe({ ...recipe, [name]: value });
   };
 
-  const handleIngredientChange = (event, index) => {
-    const { value } = event.target;
-    const ingredients = [...recipe.ingredients];
+  const handleIngredientChange = (
+    event: React.FormEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { value } = event.target as HTMLInputElement;
+    const ingredients: string[] = [...recipe.ingredients];
     ingredients[index] = value;
     setRecipe({ ...recipe, ingredients });
   };
 
-  const handleTagChange = (event, index) => {
-    const { value } = event.target;
+  const handleTagChange = (
+    event: React.FormEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { value } = event.target as HTMLInputElement;
     const tags = [...recipe.tags];
     tags[index] = value;
     setRecipe({ ...recipe, tags });
@@ -52,7 +62,9 @@ export const CreateRecipe = () => {
     setRecipe({ ...recipe, tags });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit: (
+    event: React.FormEvent<HTMLFormElement>
+  ) => Promise<void> = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       await axios.post(
@@ -181,7 +193,9 @@ export const CreateRecipe = () => {
             onChange={handleChange}
           />
         </div>
-        <button className={styles.submitButton}  type="submit">Сохранить рецепт</button>
+        <button className={styles.submitButton} type="submit">
+          Сохранить рецепт
+        </button>
       </form>
     </div>
   );

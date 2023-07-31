@@ -5,13 +5,18 @@ import createStyles from "../CreateRecipe/CreateRecipe.module.scss";
 import styles from "./Home.module.scss";
 import { Link } from "react-router-dom";
 import Search from "../../components/Search";
+import { IRecipe } from "../../types";
 
 export const Home = () => {
   const [recipes, setRecipes] = useState([]);
-  const [savedRecipes, setSavedRecipes] = useState([]);
-  const isRecipeSaved = (id) => savedRecipes.includes(id);
-  const isLiked = (recipe) => recipe.likes.includes(userID);
-  const userID = useGetUserID();
+  const [savedRecipes, setSavedRecipes] = useState<string[]>([]);
+  const isRecipeSaved = (id: string) => savedRecipes.includes(id);
+  const userID: string | null = useGetUserID();
+  const isLiked = (recipe: IRecipe) => {
+    if (userID) {
+      return recipe.likes?.includes(userID);
+    }
+  };
 
   const fetchRecipes = async () => {
     try {
@@ -33,7 +38,7 @@ export const Home = () => {
     }
   };
 
-  const saveRecipe = async (recipeID) => {
+  const saveRecipe = async (recipeID: string) => {
     try {
       const response = await axios.put(`http://localhost:3001/recipes`, {
         recipeID,
@@ -45,7 +50,7 @@ export const Home = () => {
     }
   };
 
-  const likeRecipe = async (recipeID) => {
+  const likeRecipe = async (recipeID: string) => {
     try {
       const response = await axios.put(
         `http://localhost:3001/recipes/addLike`,
@@ -63,7 +68,7 @@ export const Home = () => {
   useEffect(() => {
     fetchRecipes();
     fetchSavedRecipes();
-  }, []);
+  }, [savedRecipes, recipes, fetchSavedRecipes]);
 
   return (
     <div className={createStyles.createRecipe}>
@@ -72,7 +77,7 @@ export const Home = () => {
         <Search recipes={recipes} setRecipes={setRecipes} />
       </div>
       <ul className={styles.recipes}>
-        {recipes.map((recipe) => (
+        {recipes.map((recipe: IRecipe) => (
           <li className={styles.recipe} key={recipe._id}>
             <h2 className={styles.subTitle}>{recipe.name}</h2>
             <button
@@ -93,7 +98,7 @@ export const Home = () => {
             <div className={styles.tagsGroup}>
               <ul className={styles.tags}>
                 <li className={styles.tagTitle}>Теги:</li>
-                {recipe.tags.map((tag) => (
+                {recipe.tags?.map((tag) => (
                   <Link to={`/tag/${tag}`} className={styles.tag}>
                     {tag}
                   </Link>
@@ -105,13 +110,14 @@ export const Home = () => {
                 className={styles.likeWrapper}
                 onClick={() => likeRecipe(recipe._id)}
               >
-                {recipe.likes.length}
+                {recipe.likes?.length}
                 {isLiked(recipe) ? (
                   <img
                     className={styles.like}
                     src="./images/heart--red.svg"
                     width="20"
                     height="15"
+                    alt="like"
                   />
                 ) : (
                   <img
@@ -119,6 +125,7 @@ export const Home = () => {
                     src="./images/heart.svg"
                     width={20}
                     height={15}
+                    alt="like"
                   />
                 )}
               </p>

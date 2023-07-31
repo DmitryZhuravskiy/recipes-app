@@ -8,7 +8,7 @@ export const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const logout = () => {
+  const logout: () => void = () => {
     setCookies("access_token", "");
     window.localStorage.clear();
     navigate("/auth");

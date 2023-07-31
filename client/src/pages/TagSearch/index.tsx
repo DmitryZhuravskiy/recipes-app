@@ -4,17 +4,21 @@ import axios from "axios";
 import createStyles from "../CreateRecipe/CreateRecipe.module.scss";
 import styles from "../Home/Home.module.scss";
 import { Link, useParams } from "react-router-dom";
-
+import { IRecipe } from "../../types";
 
 const TagSearch = () => {
   const [tagRecipes, setTagRecipes] = useState([]);
-  const [savedRecipes, setSavedRecipes] = useState([]);
+  const [savedRecipes, setSavedRecipes] = useState<string[]>([]);
   const userID = useGetUserID();
-  const isRecipeSaved = (id) => savedRecipes.includes(id);
-  const isLiked = (recipe) => recipe.likes.includes(userID);
+  const isRecipeSaved = (id: string) => savedRecipes.includes(id);
+  const isLiked = (recipe: IRecipe) => {
+    if (userID) {
+      return recipe.likes?.includes(userID);
+    }
+  };
   const { id } = useParams();
 
-  const likeRecipe = async (recipeID) => {
+  const likeRecipe = async (recipeID: string) => {
     try {
       const response = await axios.put(
         `http://localhost:3001/recipes/savedRecipes/addLike/${userID}`,
@@ -29,7 +33,7 @@ const TagSearch = () => {
     }
   };
 
-  const saveRecipe = async (recipeID) => {
+  const saveRecipe = async (recipeID: string) => {
     try {
       const response = await axios.put("http://localhost:3001/recipes", {
         recipeID,
@@ -72,7 +76,7 @@ const TagSearch = () => {
     <div className={createStyles.createRecipe}>
     <h1 className={styles.title}>Поиск по тегу #{id}</h1>
     <ul className={styles.recipes}>
-      {tagRecipes.map((recipe) => (
+      {tagRecipes.map((recipe: IRecipe) => (
         <li className={styles.recipe} key={recipe._id}>
           <h2 className={styles.subTitle}>{recipe.name}</h2>
           <button
