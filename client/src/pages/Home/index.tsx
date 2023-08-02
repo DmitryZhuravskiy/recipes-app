@@ -1,74 +1,31 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetUserID } from "../../hooks/useGetUserID";
-import axios from "axios";
 import createStyles from "../CreateRecipe/CreateRecipe.module.scss";
 import styles from "./Home.module.scss";
 import { Link } from "react-router-dom";
 import Search from "../../components/Search";
 import { IRecipe } from "../../types";
+import {
+  isLiked,
+  isRecipeSaved,
+  likeRecipe,
+  saveRecipe,
+  fetchSavedRecipes,
+  fetchRecipes,
+} from "../../hooks/userHooks";
 
 export const Home = () => {
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState<IRecipe[]>([]);
   const [savedRecipes, setSavedRecipes] = useState<string[]>([]);
-  const isRecipeSaved = (id: string) => savedRecipes.includes(id);
   const userID: string | null = useGetUserID();
-  const isLiked = (recipe: IRecipe) => {
-    if (userID) {
-      return recipe.likes?.includes(userID);
-    }
-  };
-
-  const fetchRecipes = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3001/recipes`);
-      setRecipes(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const fetchSavedRecipes = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
-      );
-      setSavedRecipes(response.data.savedRecipes);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const saveRecipe = async (recipeID: string) => {
-    try {
-      const response = await axios.put(`http://localhost:3001/recipes`, {
-        recipeID,
-        userID,
-      });
-      setSavedRecipes(response.data.savedRecipes);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const likeRecipe = async (recipeID: string) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:3001/recipes/addLike`,
-        {
-          recipeID,
-          userID,
-        }
-      );
-      setRecipes(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
-    fetchRecipes();
-    fetchSavedRecipes();
-  }, [savedRecipes, recipes, fetchSavedRecipes]);
+    fetchRecipes(`http://localhost:3001/recipes`, setRecipes);
+    fetchSavedRecipes(
+      `http://localhost:3001/recipes/savedRecipes/ids/${userID}`,
+      setSavedRecipes
+    );
+  }, [savedRecipes, recipes]);
 
   return (
     <div className={createStyles.createRecipe}>
@@ -82,10 +39,17 @@ export const Home = () => {
             <h2 className={styles.subTitle}>{recipe.name}</h2>
             <button
               className={createStyles.button}
-              onClick={() => saveRecipe(recipe._id)}
-              disabled={isRecipeSaved(recipe._id)}
+              onClick={() =>
+                saveRecipe(
+                  recipe._id,
+                  userID,
+                  `http://localhost:3001/recipes`,
+                  setSavedRecipes
+                )
+              }
+              disabled={isRecipeSaved(recipe._id, savedRecipes)}
             >
-              {isRecipeSaved(recipe._id)
+              {isRecipeSaved(recipe._id, savedRecipes)
                 ? "В избранных"
                 : "Добавить в избранные"}
             </button>
@@ -108,10 +72,17 @@ export const Home = () => {
             <div className={styles.likeAndLink}>
               <p
                 className={styles.likeWrapper}
-                onClick={() => likeRecipe(recipe._id)}
+                onClick={() =>
+                  likeRecipe(
+                    recipe._id,
+                    userID,
+                    `http://localhost:3001/recipes/addLike`,
+                    setRecipes
+                  )
+                }
               >
                 {recipe.likes?.length}
-                {isLiked(recipe) ? (
+                {isLiked(recipe, userID) ? (
                   <img
                     className={styles.like}
                     src="./images/heart--red.svg"

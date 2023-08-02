@@ -6,30 +6,11 @@ import styles from "./Home/Home.module.scss";
 import { Link } from "react-router-dom";
 import Search from "../components/Search";
 import { IRecipe } from "../types";
+import { isLiked, likeRecipe } from "../hooks/userHooks";
 
 export const SavedRecipes = () => {
-  const [savedRecipes, setSavedRecipes] = useState([]);
+  const [savedRecipes, setSavedRecipes] = useState<IRecipe[]>([]);
   const userID = useGetUserID();
-  const isLiked = (recipe: IRecipe) => {
-    if (userID) {
-      return recipe.likes?.includes(userID);
-    }
-  }
-
-  const likeRecipe = async (recipeID: string) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:3001/recipes/savedRecipes/addLike/${userID}`,
-        {
-          recipeID,
-          userID,
-        }
-      );
-      setSavedRecipes(response.data.savedRecipes);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
     const fetchSavedRecipes = async () => {
@@ -44,7 +25,7 @@ export const SavedRecipes = () => {
     };
 
     fetchSavedRecipes();
-  }, [userID]);
+  }, [userID, savedRecipes]);
   return (
     <div className={createStyles.createRecipe}>
       <div className={styles.titleWrapper}>
@@ -74,10 +55,18 @@ export const SavedRecipes = () => {
             <div className={styles.likeAndLink}>
               <p
                 className={styles.likeWrapper}
-                onClick={() => likeRecipe(recipe._id)}
+                onClick={() =>
+                  likeRecipe(
+                    recipe._id,
+                    userID,
+                    `http://localhost:3001/recipes/savedRecipes/addLike/${userID}`,
+                    setSavedRecipes,
+                    true
+                  )
+                }
               >
                 {recipe.likes.length}
-                {isLiked(recipe) ? (
+                {isLiked(recipe, userID) ? (
                   <img
                     className={styles.like}
                     src="./images/heart--red.svg"
